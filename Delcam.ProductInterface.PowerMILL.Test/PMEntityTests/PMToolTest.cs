@@ -361,9 +361,11 @@ namespace Autodesk.ProductInterface.PowerMILLTest.PMEntityTests
         [Test]
         public void TipRadiusTest()
         {
-            var tool = (PMToolTippedDisc) _powerMill.ActiveProject.Tools[6];
-            tool.TipRadius = 1.0;
-            Assert.AreEqual((MM) 1.0, tool.TipRadius);
+            var tool = (PMToolTippedDisc) _powerMill.ActiveProject.Tools[6];            
+            tool.LowerTipRadius = 1.5;
+            tool.UpperTipRadius = 1.0;
+            Assert.AreEqual((MM)1.5, tool.LowerTipRadius);
+            Assert.AreEqual((MM)1.0, tool.UpperTipRadius);
         }
 
         [Test]
@@ -523,5 +525,19 @@ namespace Autodesk.ProductInterface.PowerMILLTest.PMEntityTests
         }
 
         #endregion
+
+        #region Test operations
+
+        [Test]
+        public void DrawAndUndrawAllToolsTest()
+        {
+            _powerMill.LoadProject(TestFiles.ToolProperties);
+            _powerMill.ActiveProject.Tools.DrawAll();
+            _powerMill.ActiveProject.Tools.UndrawAll();
+            Assert.IsTrue(true);
+        }
+
+        #endregion
+
     }
 }
